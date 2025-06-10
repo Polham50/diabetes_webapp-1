@@ -1,0 +1,92 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 30px;
+}
+
+h1 {
+    color: #00695c;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.form-label {
+    color: #004d40;
+    font-weight: 500;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #b0bec5;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #00695c;
+    box-shadow: 0 0 5px rgba(0, 105, 92, 0.3);
+}
+
+.btn-primary {
+    background-color: #00695c;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #004d40;
+}
+
+.alert {
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.progress {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #eceff1;
+}
+
+.progress-bar {
+    transition: width 1s ease-in-out;
+}
+
+.is-invalid {
+    border-color: #d32f2f !important;
+}
+
+/* Custom animations */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+body {
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+}

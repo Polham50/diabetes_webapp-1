@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container animate__animated animate__fadeIn">
+        <header class="text-center mb-4 animate__animated animate__slideInDown">
+            <h1><i class="fas fa-stethoscope me-2"></i>Prediction Result</h1>
+        </header>
+        <div class="card shadow-lg border-0 animate__animated animate__zoomIn">
+            <div class="card-body text-center p-5">
+                <h3 class="card-title mb-4">
+                    <i class="fas {{ 'fa-exclamation-triangle text-danger' if probability >= 50 else 'fa-check-circle text-success' }} me-2"></i>
+                    {{ result }}
+                </h3>
+                <p class="card-text lead">Diabetes Probability: <strong>{{ probability }}%</strong></p>
+                <div class="progress mb-4" style="height: 30px; border-radius: 15px; background-color: #e0e0e0;">
+                    <div class="progress-bar {{ 'bg-danger' if probability >= 50 else 'bg-success' }} progress-bar-animated" 
+                         role="progressbar" 
+                         style="width: 0%; transition: width 1.5s ease-in-out;" 
+                         data-progress="{{ probability }}" 
+                         aria-valuenow="{{ probability }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {{ probability }}%
+                    </div>
+                </div>
+                <p class="text-muted fs-5">
+                    {% if probability >= 50 %}
+                    <strong>High Risk:</strong> Recommend immediate follow-up testing (e.g., glucose tolerance test).
+                    {% else %}
+                    <strong>Low Risk:</strong> No immediate risk detected. Continue routine prenatal monitoring.
+                    {% endif %}
+                </p>
+                <a href="/" class="btn btn-primary py-3 px-4 animate__animated animate__pulse animate__infinite">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Input
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animate progress bar to exact percentage
+        const progressBar = document.querySelector('.progress-bar');
+        const targetProgress = parseFloat(progressBar.dataset.progress);
+        let currentProgress = 0;
+        const animationSpeed = 20; // ms per increment
+        const increment = targetProgress / 100; // Smooth steps
+
+        const animateProgress = setInterval(() => {
+            if (currentProgress >= targetProgress) {
+                clearInterval(animateProgress);
+                progressBar.style.width = targetProgress + '%';
+            } else {
+                currentProgress += increment;
+                progressBar.style.width = currentProgress + '%';
+            }
+        }, animationSpeed);
+    </script>
+</body>
+</html>
